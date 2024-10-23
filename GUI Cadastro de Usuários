@@ -1,0 +1,136 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class SistemaPessoa extends JFrame {
+
+    public SistemaPessoa() {
+        setTitle("Sistema de Pessoa");
+        setSize(700, 400);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Painel de Menu Superior
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menuCadastro = new JMenu("Cadastro");
+        JMenu menuVisualizacao = new JMenu("Visualização");
+        JMenuItem menuSair = new JMenuItem("Sair");
+        
+        menuBar.add(menuCadastro);
+        menuBar.add(menuVisualizacao);
+        menuBar.add(Box.createHorizontalGlue()); // Empurra o "Sair" para a direita
+        menuBar.add(menuSair);
+        
+        setJMenuBar(menuBar);
+
+        // Painel Central - Formulário
+        JPanel formPanel = new JPanel();
+        formPanel.setBackground(Color.BLACK);
+        formPanel.setLayout(null);  // Layout manual para posicionar componentes
+
+        // Título do Painel
+        JLabel tituloLabel = new JLabel("Sistema de Pessoa", JLabel.CENTER);
+        tituloLabel.setForeground(Color.BLACK);
+        tituloLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        tituloLabel.setBounds(10, 10, 680, 30);
+        tituloLabel.setBackground(Color.LIGHT_GRAY);
+        tituloLabel.setOpaque(true);
+        
+        // Labels e campos de texto
+        JLabel usuarioLabel = new JLabel("Usuário:");
+        usuarioLabel.setForeground(Color.WHITE);
+        usuarioLabel.setBounds(50, 50, 100, 25);
+        
+        JTextField usuarioField = new JTextField();
+        usuarioField.setBounds(150, 50, 200, 25);
+
+        JLabel senhaLabel = new JLabel("Senha:");
+        senhaLabel.setForeground(Color.WHITE);
+        senhaLabel.setBounds(50, 100, 100, 25);
+
+        JPasswordField senhaField = new JPasswordField();
+        senhaField.setBounds(150, 100, 200, 25);
+
+        JLabel emailLabel = new JLabel("Email:");
+        emailLabel.setForeground(Color.WHITE);
+        emailLabel.setBounds(50, 150, 100, 25);
+
+        JTextField emailField = new JTextField();
+        emailField.setBounds(150, 150, 200, 25);
+
+        JLabel ativoLabel = new JLabel("Ativo:");
+        ativoLabel.setForeground(Color.WHITE);
+        ativoLabel.setBounds(50, 200, 100, 25);
+
+        JRadioButton ativoRadioButton = new JRadioButton();
+        ativoRadioButton.setBounds(150, 200, 25, 25);
+
+        // Adicionar os componentes ao painel de formulário
+        formPanel.add(tituloLabel);
+        formPanel.add(usuarioLabel);
+        formPanel.add(usuarioField);
+        formPanel.add(senhaLabel);
+        formPanel.add(senhaField);
+        formPanel.add(emailLabel);
+        formPanel.add(emailField);
+        formPanel.add(ativoLabel);
+        formPanel.add(ativoRadioButton);
+        
+        // Botões
+        JButton salvarButton = new JButton("Salvar");
+        salvarButton.setBounds(100, 250, 80, 25);
+        
+        JButton limparButton = new JButton("Limpar");
+        limparButton.setBounds(200, 250, 80, 25);
+        
+        JButton sairButton = new JButton("Sair");
+        sairButton.setBounds(300, 250, 80, 25);
+        
+        formPanel.add(salvarButton);
+        formPanel.add(limparButton);
+        formPanel.add(sairButton);
+
+        // Ações dos botões
+        salvarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!");
+            }
+        });
+
+        limparButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                usuarioField.setText("");
+                senhaField.setText("");
+                emailField.setText("");
+                ativoRadioButton.setSelected(false);
+            }
+        });
+
+        sairButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        add(formPanel, BorderLayout.CENTER);
+
+        // Rodapé
+        JPanel footerPanel = new JPanel(new BorderLayout());
+        footerPanel.setBackground(Color.LIGHT_GRAY);
+
+        JLabel footerLabel = new JLabel("Versão: 12.1.2024        Usuário: denys.silva        Data de acesso: 20/09/2024 10:58", JLabel.CENTER);
+        footerPanel.add(footerLabel, BorderLayout.CENTER);
+        
+        add(footerPanel, BorderLayout.SOUTH);
+
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new SistemaPessoa();
+    }
+}
