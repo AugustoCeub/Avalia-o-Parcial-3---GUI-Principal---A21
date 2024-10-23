@@ -1,0 +1,324 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class SistemaPessoa extends JFrame {
+    private CardLayout cardLayout; // Usado para alternar entre os painéis
+    private JPanel mainPanel; // Painel principal que contém os diferentes painéis
+
+    public SistemaPessoa() {
+        setTitle("Sistema de Pessoa");
+        setSize(700, 600);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Criar um CardLayout para alternar entre os painéis
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
+
+        // Criar os painéis
+        JPanel cadastroUsuarioPanel = createCadastroUsuarioPanel();
+        JPanel cadastroPessoaPanel = createCadastroPessoaPanel();
+        JPanel listaUsuariosPanel = createListaUsuariosPanel();
+        JPanel listaPessoasPanel = createListaPessoasPanel();
+
+        // Adicionar os painéis ao painel principal
+        mainPanel.add(cadastroUsuarioPanel, "Cadastro Usuário");
+        mainPanel.add(cadastroPessoaPanel, "Cadastro Pessoa");
+        mainPanel.add(listaUsuariosPanel, "Lista Usuários");
+        mainPanel.add(listaPessoasPanel, "Lista Pessoas");
+
+        add(mainPanel, BorderLayout.CENTER);
+
+        // Painel de Menu Superior
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menuCadastro = new JMenu("Cadastro");
+        JMenu menuVisualizacao = new JMenu("Visualização");
+
+        JMenuItem menuCadastroUsuario = new JMenuItem("Usuários");
+        JMenuItem menuCadastroPessoa = new JMenuItem("Pessoas");
+        JMenuItem menuListaUsuarios = new JMenuItem("Lista de Usuários");
+        JMenuItem menuListaPessoas = new JMenuItem("Lista de Pessoas");
+        JMenuItem menuSair = new JMenuItem("Sair");
+
+        // Ações do menu
+        menuCadastroUsuario.addActionListener(e -> cardLayout.show(mainPanel, "Cadastro Usuário"));
+        menuCadastroPessoa.addActionListener(e -> cardLayout.show(mainPanel, "Cadastro Pessoa"));
+        menuListaUsuarios.addActionListener(e -> cardLayout.show(mainPanel, "Lista Usuários"));
+        menuListaPessoas.addActionListener(e -> cardLayout.show(mainPanel, "Lista Pessoas"));
+        menuSair.addActionListener(e -> System.exit(0));
+
+        menuCadastro.add(menuCadastroUsuario);
+        menuCadastro.add(menuCadastroPessoa);
+        menuVisualizacao.add(menuListaUsuarios);
+        menuVisualizacao.add(menuListaPessoas);
+        menuBar.add(menuCadastro);
+        menuBar.add(menuVisualizacao);
+        menuBar.add(Box.createHorizontalGlue()); // Empurra o "Sair" para a direita
+        menuBar.add(menuSair);
+
+        setJMenuBar(menuBar);
+
+        // Rodapé
+        JPanel footerPanel = new JPanel(new BorderLayout());
+        footerPanel.setBackground(Color.LIGHT_GRAY);
+
+        JLabel footerLabel = new JLabel("Versão: 12.1.2024        Usuário: denys.silva        Data de acesso: 20/09/2024 10:58", JLabel.CENTER);
+        footerPanel.add(footerLabel, BorderLayout.CENTER);
+
+        add(footerPanel, BorderLayout.SOUTH);
+
+        setVisible(true);
+    }
+
+    // Método para criar o painel de cadastro de usuário
+    private JPanel createCadastroUsuarioPanel() {
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.BLACK);
+        panel.setLayout(null); // Layout manual para posicionar componentes
+
+        // Título do Painel
+        JLabel tituloLabel = new JLabel("Cadastro de Usuário", JLabel.CENTER);
+        tituloLabel.setForeground(Color.BLACK);
+        tituloLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        tituloLabel.setBounds(10, 10, 680, 30);
+        tituloLabel.setBackground(Color.LIGHT_GRAY);
+        tituloLabel.setOpaque(true);
+
+        // Labels e campos de texto do cadastro de Usuário
+        JLabel usuarioLabel = new JLabel("Usuário:");
+        usuarioLabel.setForeground(Color.WHITE);
+        usuarioLabel.setBounds(50, 50, 100, 25);
+
+        JTextField usuarioField = new JTextField();
+        usuarioField.setBounds(150, 50, 200, 25);
+
+        JLabel senhaLabel = new JLabel("Senha:");
+        senhaLabel.setForeground(Color.WHITE);
+        senhaLabel.setBounds(50, 100, 100, 25);
+
+        JPasswordField senhaField = new JPasswordField();
+        senhaField.setBounds(150, 100, 200, 25);
+
+        JLabel emailLabel = new JLabel("Email:");
+        emailLabel.setForeground(Color.WHITE);
+        emailLabel.setBounds(50, 150, 100, 25);
+
+        JTextField emailField = new JTextField();
+        emailField.setBounds(150, 150, 200, 25);
+
+        JLabel ativoLabel = new JLabel("Ativo:");
+        ativoLabel.setForeground(Color.WHITE);
+        ativoLabel.setBounds(50, 200, 100, 25);
+
+        JRadioButton ativoRadioButton = new JRadioButton();
+        ativoRadioButton.setBounds(150, 200, 25, 25);
+        ativoRadioButton.setBackground(Color.BLACK); // Configura a cor de fundo do botão de rádio
+
+        // Adicionar os componentes ao painel de formulário de usuário
+        panel.add(tituloLabel);
+        panel.add(usuarioLabel);
+        panel.add(usuarioField);
+        panel.add(senhaLabel);
+        panel.add(senhaField);
+        panel.add(emailLabel);
+        panel.add(emailField);
+        panel.add(ativoLabel);
+        panel.add(ativoRadioButton);
+
+        // Botões
+        JButton salvarButton = new JButton("Salvar");
+        salvarButton.setBounds(100, 250, 80, 25);
+        JButton limparButton = new JButton("Limpar");
+        limparButton.setBounds(200, 250, 80, 25);
+        JButton sairButton = new JButton("Sair");
+        sairButton.setBounds(300, 250, 80, 25);
+
+        panel.add(salvarButton);
+        panel.add(limparButton);
+        panel.add(sairButton);
+
+        // Ações dos botões
+        salvarButton.addActionListener(e -> {
+            // Mensagem de confirmação
+            JOptionPane.showMessageDialog(null, "Dados do usuário salvos com sucesso!");
+        });
+
+        limparButton.addActionListener(e -> {
+            // Limpar campos de usuário
+            usuarioField.setText("");
+            senhaField.setText("");
+            emailField.setText("");
+            ativoRadioButton.setSelected(false);
+        });
+
+        sairButton.addActionListener(e -> System.exit(0));
+
+        return panel;
+    }
+
+    // Método para criar o painel de cadastro de pessoa
+    private JPanel createCadastroPessoaPanel() {
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.BLACK);
+        panel.setLayout(null); // Layout manual para posicionar componentes
+
+        // Título do Painel
+        JLabel tituloLabel = new JLabel("Cadastro de Pessoa", JLabel.CENTER);
+        tituloLabel.setForeground(Color.BLACK);
+        tituloLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        tituloLabel.setBounds(10, 10, 680, 30);
+        tituloLabel.setBackground(Color.LIGHT_GRAY);
+        tituloLabel.setOpaque(true);
+
+        // Labels e campos de texto do cadastro de Pessoa
+        JLabel nomeLabel = new JLabel("Nome:");
+        nomeLabel.setForeground(Color.WHITE);
+        nomeLabel.setBounds(50, 50, 100, 25);
+
+        JTextField nomeField = new JTextField();
+        nomeField.setBounds(150, 50, 200, 25);
+
+        JLabel sobrenomeLabel = new JLabel("Sobrenome:");
+        sobrenomeLabel.setForeground(Color.WHITE);
+        sobrenomeLabel.setBounds(50, 100, 100, 25);
+
+        JTextField sobrenomeField = new JTextField();
+        sobrenomeField.setBounds(150, 100, 200, 25);
+
+        JLabel dataNascimentoLabel = new JLabel("Data Nasc.:");
+        dataNascimentoLabel.setForeground(Color.WHITE);
+        dataNascimentoLabel.setBounds(50, 150, 100, 25);
+
+        JTextField dataNascimentoField = new JTextField();
+        dataNascimentoField.setBounds(150, 150, 200, 25);
+
+        JLabel cpfLabel = new JLabel("CPF:");
+        cpfLabel.setForeground(Color.WHITE);
+        cpfLabel.setBounds(50, 200, 100, 25);
+
+        JTextField cpfField = new JTextField();
+        cpfField.setBounds(150, 200, 200, 25);
+
+        JLabel enderecoLabel = new JLabel("Endereço:");
+        enderecoLabel.setForeground(Color.WHITE);
+        enderecoLabel.setBounds(50, 250, 100, 25);
+
+        JTextField enderecoField = new JTextField();
+        enderecoField.setBounds(150, 250, 200, 25);
+
+        JLabel sexoLabel = new JLabel("Sexo:");
+        sexoLabel.setForeground(Color.WHITE);
+        sexoLabel.setBounds(50, 300, 100, 25);
+
+        JRadioButton masculinoRadioButton = new JRadioButton("Masculino");
+        masculinoRadioButton.setBounds(150, 300, 100, 25);
+        masculinoRadioButton.setForeground(Color.WHITE);
+        masculinoRadioButton.setBackground(Color.BLACK);
+
+        JRadioButton femininoRadioButton = new JRadioButton("Feminino");
+        femininoRadioButton.setBounds(250, 300, 100, 25);
+        femininoRadioButton.setForeground(Color.WHITE);
+        femininoRadioButton.setBackground(Color.BLACK);
+
+        // Agrupar os botões de sexo
+        ButtonGroup sexoGroup = new ButtonGroup();
+        sexoGroup.add(masculinoRadioButton);
+        sexoGroup.add(femininoRadioButton);
+
+        // Adicionar componentes do formulário de pessoa
+        panel.add(tituloLabel);
+        panel.add(nomeLabel);
+        panel.add(nomeField);
+        panel.add(sobrenomeLabel);
+        panel.add(sobrenomeField);
+        panel.add(dataNascimentoLabel);
+        panel.add(dataNascimentoField);
+        panel.add(cpfLabel);
+        panel.add(cpfField);
+        panel.add(enderecoLabel);
+        panel.add(enderecoField);
+        panel.add(sexoLabel);
+        panel.add(masculinoRadioButton);
+        panel.add(femininoRadioButton);
+
+        // Botões
+        JButton salvarButton = new JButton("Salvar");
+        salvarButton.setBounds(100, 350, 80, 25);
+        JButton limparButton = new JButton("Limpar");
+        limparButton.setBounds(200, 350, 80, 25);
+        JButton sairButton = new JButton("Sair");
+        sairButton.setBounds(300, 350, 80, 25);
+
+        panel.add(salvarButton);
+        panel.add(limparButton);
+        panel.add(sairButton);
+
+        // Ações dos botões
+        salvarButton.addActionListener(e -> {
+            // Mensagem de confirmação
+            JOptionPane.showMessageDialog(null, "Dados da pessoa salvos com sucesso!");
+        });
+
+        limparButton.addActionListener(e -> {
+            // Limpar campos de pessoa
+            nomeField.setText("");
+            sobrenomeField.setText("");
+            dataNascimentoField.setText("");
+            cpfField.setText("");
+            enderecoField.setText("");
+            sexoGroup.clearSelection(); // Desmarca os botões de sexo
+        });
+
+        sairButton.addActionListener(e -> System.exit(0));
+
+        return panel;
+    }
+
+    // Método para criar o painel de lista de usuários (exemplo)
+    private JPanel createListaUsuariosPanel() {
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.BLACK);
+        panel.setLayout(new BorderLayout());
+
+        JLabel titleLabel = new JLabel("Lista de Usuários", JLabel.CENTER);
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        panel.add(titleLabel, BorderLayout.NORTH);
+
+        JTextArea listaUsuariosArea = new JTextArea();
+        listaUsuariosArea.setBackground(Color.DARK_GRAY);
+        listaUsuariosArea.setForeground(Color.WHITE);
+        listaUsuariosArea.setEditable(false);
+        listaUsuariosArea.setText("Usuário 1\nUsuário 2\nUsuário 3"); // Exemplo de dados
+        panel.add(new JScrollPane(listaUsuariosArea), BorderLayout.CENTER);
+
+        return panel;
+    }
+
+    // Método para criar o painel de lista de pessoas (exemplo)
+    private JPanel createListaPessoasPanel() {
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.BLACK);
+        panel.setLayout(new BorderLayout());
+
+        JLabel titleLabel = new JLabel("Lista de Pessoas", JLabel.CENTER);
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        panel.add(titleLabel, BorderLayout.NORTH);
+
+        JTextArea listaPessoasArea = new JTextArea();
+        listaPessoasArea.setBackground(Color.DARK_GRAY);
+        listaPessoasArea.setForeground(Color.WHITE);
+        listaPessoasArea.setEditable(false);
+        listaPessoasArea.setText("Pessoa 1\nPessoa 2\nPessoa 3"); // Exemplo de dados
+        panel.add(new JScrollPane(listaPessoasArea), BorderLayout.CENTER);
+
+        return panel;
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new SistemaPessoa());
+    }
+}
