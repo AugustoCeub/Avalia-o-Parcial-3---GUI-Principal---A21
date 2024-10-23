@@ -1,0 +1,81 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class SistemaPessoa extends JFrame {
+
+    // Definindo os painéis como atributos de classe para acesso no ActionListener
+    private JPanel tituloPanel;
+    private JPanel inputPanel;
+
+    public SistemaPessoa() {
+        setTitle("Sistema de Pessoas");
+        setSize(500, 300);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Menu
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu menuCadastros = new JMenu("Cadastros");
+        JMenu menuVisualizacao = new JMenu("Visualização");
+
+        JMenuItem menuCadastrosUsuarios = new JMenuItem("Usuários");
+        JMenuItem menuCadastrosPessoas = new JMenuItem("Pessoas");
+        JMenuItem menuVisualizacaoListaUsuarios = new JMenuItem("Lista de Usuários");
+        JMenuItem menuVisualizacaoListaPessoas = new JMenuItem("Lista de Pessoas");
+
+        // Adiciona as opções ao menu
+        menuCadastros.add(menuCadastrosUsuarios);
+        menuCadastros.add(menuCadastrosPessoas);
+        menuVisualizacao.add(menuVisualizacaoListaUsuarios);
+        menuVisualizacao.add(menuVisualizacaoListaPessoas);
+
+        // Adiciona os menus à barra de menu
+        menuBar.add(menuCadastros);
+        menuBar.add(menuVisualizacao);
+
+        // Criar o botão "Sair" na barra de menu
+        JButton sairButton = new JButton("Sair");
+        menuBar.add(sairButton); // Adiciona o botão "Sair" à barra de menu
+        setJMenuBar(menuBar);
+
+        // Inicialização dos painéis (mesmo que ainda não estejam visíveis)
+        tituloPanel = new JPanel();
+        inputPanel = new JPanel();
+
+        // Ação do botão "Sair"
+        sairButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tituloPanel.setVisible(false);
+                inputPanel.setVisible(false);
+            }
+        });
+
+        // Criação do rodapé
+        JPanel footerPanel = new JPanel();
+        footerPanel.setLayout(new GridLayout(1,4));
+
+        JLabel versionLabel = new JLabel("Versão: 12.1.2024");
+        JLabel userLabel = new JLabel("Usuário: denys.silva");
+        JLabel dateLabel = new JLabel("Data de acesso: 20/09/2024");
+        JLabel timeLabel = new JLabel("10:58");
+
+        footerPanel.add(versionLabel);
+        footerPanel.add(userLabel);
+        footerPanel.add(dateLabel);
+        footerPanel.add(timeLabel);
+
+        // Adicionando o rodapé ao layout principal
+        add(footerPanel, BorderLayout.SOUTH);
+
+        // Torna a janela visível
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new SistemaPessoa();
+    }
+}
